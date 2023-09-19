@@ -1,49 +1,50 @@
-import React from 'react'
-import hoistNonReactStatics from 'hoist-non-react-statics'
-import objectAssign from 'object-assign'
+import React, { Component as ReactComponent } from 'react';
+import PropTypes from 'prop-types';
+import hoistNonReactStatics from 'hoist-non-react-statics';
+import objectAssign from 'object-assign';
 
 function createComponent(Component, additionalContextTypes) {
-  var componentName = Component.displayName || Component.name
-  var childContextTypes = objectAssign({
+  let componentName = Component.displayName || Component.name;
+  let childContextTypes = objectAssign({
     reactor: React.PropTypes.object.isRequired,
-  }, additionalContextTypes || {})
+  }, additionalContextTypes || {});
 
-  var ReactorProvider = React.createClass({
-    displayName: 'ReactorProvider(' + componentName + ')',
+  class ReactorProvider extends ReactComponent {
+    static displayName = 'ReactorProvider(' + componentName + ')';
 
-    propTypes: {
-      reactor: React.PropTypes.object.isRequired,
-    },
+    static propTypes = {
+      reactor: PropTypes.object.isRequired,
+    };
 
-    childContextTypes: childContextTypes,
+    static childContextTypes = childContextTypes;
 
-    getChildContext: function() {
-      var childContext = {
+    static getChildContext = function () {
+      let childContext = {
         reactor: this.props.reactor,
-      }
+      };
       if (additionalContextTypes) {
-        Object.keys(additionalContextTypes).forEach(function(key) {
-          childContext[key] = this.props[key]
-        }, this)
+        Object.keys(additionalContextTypes).forEach(function (key) {
+          childContext[key] = this.props[key];
+        }, this);
       }
-      return childContext
-    },
+      return childContext;
+    };
 
-    render: function() {
-      return React.createElement(Component, this.props)
-    },
-  })
+    render() {
+      return React.createElement(Component, this.props);
+    }
+  }
 
-  hoistNonReactStatics(ReactorProvider, Component)
+  hoistNonReactStatics(ReactorProvider, Component);
 
-  return ReactorProvider
+  return ReactorProvider;
 }
 
 /**
  * Provides reactor prop to all children as React context
  *
  * Example:
- *   var WrappedComponent = provideReactor(Component, {
+ *   const WrappedComponent = provideReactor(Component, {
  *     foo: React.PropTypes.string
  *   });
  *
@@ -63,14 +64,14 @@ function createComponent(Component, additionalContextTypes) {
  * @returns {React.Component|Function} returns function if using decorator pattern
  */
 export default function provideReactor(Component, additionalContextTypes) {
-  console.warn('`provideReactor` is deprecated, use `<Provider reactor={reactor} />` instead')
+  console.warn('`provideReactor` is deprecated, use `<Provider reactor={reactor} />` instead'); // eslint-disable-line
   // support decorator pattern
   if (arguments.length === 0 || typeof arguments[0] !== 'function') {
-    additionalContextTypes = arguments[0]
+    additionalContextTypes = arguments[0];
     return function connectToReactorDecorator(ComponentToDecorate) {
-      return createComponent(ComponentToDecorate, additionalContextTypes)
-    }
+      return createComponent(ComponentToDecorate, additionalContextTypes);
+    };
   }
 
-  return createComponent.apply(null, arguments)
+  return createComponent.apply(null, arguments);
 }

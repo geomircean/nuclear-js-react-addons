@@ -1,8 +1,8 @@
-import connect from './connect'
-import Provider from './Provider'
-import nuclearMixin from './nuclearMixin'
-import provideReactor from './provideReactor'
-import nuclearComponent from './nuclearComponent'
+import connect from './connect';
+import Provider from './Provider';
+import nuclearMixin from './nuclearMixin';
+import provideReactor from './provideReactor';
+import nuclearComponent from './nuclearComponent';
 
 export {
   connect,
@@ -10,4 +10,4 @@ export {
   nuclearMixin,
   provideReactor,
   nuclearComponent,
-}
+};

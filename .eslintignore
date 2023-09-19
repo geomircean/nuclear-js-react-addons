@@ -1,3 +1,5 @@
 build
 dist
 test.bundle.js
+test
+karma.conf.js

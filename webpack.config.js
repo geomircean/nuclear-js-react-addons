@@ -1,11 +1,12 @@
 module.exports = {
+  // mode: 'development',
   output: {
     library: 'NuclearJSReactAddons',
     libraryTarget: 'umd',
   },
 
   module: {
-    loaders: [{
+    rules: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
       loader: 'babel-loader',

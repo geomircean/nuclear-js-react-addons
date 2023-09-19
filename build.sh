@@ -1,7 +1,7 @@
 #!/bin/bash -e
 babel=node_modules/.bin/babel
 build_dir=build
-cd ..
+
 rm -rf $build_dir
 
 NODE_ENV=production $babel src --out-dir $build_dir

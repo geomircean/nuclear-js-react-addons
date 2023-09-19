@@ -1,4 +1,7 @@
 {
-  stage: 0,
-  loose: 'all',
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
+  "plugins": []
 }

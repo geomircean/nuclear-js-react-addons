@@ -1,2 +1,4 @@
 node_modules
 test.bundle.js
+.idea
+.idea/*
