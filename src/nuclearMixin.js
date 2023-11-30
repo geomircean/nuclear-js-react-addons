@@ -1,12 +1,12 @@
-import { PropTypes } from 'react'
+import PropTypes from 'prop-types';
 
 /**
  * Iterate on an object
  */
 function each(obj, fn) {
-  for (var key in obj) {
+  for (let key in obj) {
     if (obj.hasOwnProperty(key)) {
-      fn(obj[key], key)
+      fn(obj[key], key);
     }
   }
 }
@@ -16,11 +16,11 @@ function each(obj, fn) {
  * the reactor values
  */
 function getState(reactor, data) {
-  var state = {}
-  each(data, function(value, key) {
-    state[key] = reactor.evaluate(value)
-  })
-  return state
+  let state = {};
+  each(data, (value, key) => {
+    state[key] = reactor.evaluate(value);
+  });
+  return state;
 }
 
 /**
@@ -35,36 +35,36 @@ export default {
     reactor: PropTypes.object.isRequired,
   },
 
-  getInitialState: function() {
+  getInitialState: function () {
     if (!this.getDataBindings) {
-      return null
+      return null;
     }
-    return getState(this.context.reactor, this.getDataBindings())
+    return getState(this.context.reactor, this.getDataBindings());
   },
 
-  componentDidMount: function() {
+  componentDidMount: function () {
     if (!this.getDataBindings) {
-      return
+      return;
     }
-    var component = this
-    component.__nuclearUnwatchFns = []
-    each(this.getDataBindings(), function(getter, key) {
-      var unwatchFn = component.context.reactor.observe(getter, function(val) {
-        var newState = {}
-        newState[key] = val
-        component.setState(newState)
-      })
+    let component = this;
+    component.__nuclearUnwatchFns = [];
+    each(this.getDataBindings(), (getter, key) => {
+      const unwatchFn = component.context.reactor.observe(getter, function (val) {
+        const newState = {};
+        newState[key] = val;
+        component.setState(newState);
+      });
 
-      component.__nuclearUnwatchFns.push(unwatchFn)
-    })
+      component.__nuclearUnwatchFns.push(unwatchFn);
+    });
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount: function () {
     if (!this.__nuclearUnwatchFns) {
-      return
+      return;
     }
     while (this.__nuclearUnwatchFns.length) {
-      this.__nuclearUnwatchFns.shift()()
+      this.__nuclearUnwatchFns.shift()();
     }
   },
-}
+};

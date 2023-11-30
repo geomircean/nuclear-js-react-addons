@@ -1,4 +1,4 @@
-import connect from './connect'
+import connect from './connect';
 
 /**
  * Provides dataBindings + reactor
@@ -26,13 +26,13 @@ import connect from './connect'
  * @returns {React.Component|Function} returns function if using decorator pattern
  */
 export default function nuclearComponent(Component, getDataBindings) {
-  console.warn('nuclearComponent is deprecated, use `connect()` instead')
+  console.warn('nuclearComponent is deprecated, use `connect()` instead'); // eslint-disable-line
   // support decorator pattern
   // detect all React Components because they have a render method
   if (arguments.length === 0 || !Component.prototype.render) {
     // Component here is the getDataBindings Function
-    return connect(Component)
+    return connect(Component);
   }
 
-  return connect(getDataBindings)(Component)
+  return connect(getDataBindings)(Component);
 }
