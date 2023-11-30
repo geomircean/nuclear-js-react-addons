@@ -1,6 +1,6 @@
 {
   "name": "@gm/nuclear-js-react-addons",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "React addons for nuclear-js",
   "main": "build/index.js",
   "scripts": {
