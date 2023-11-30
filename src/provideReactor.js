@@ -1,15 +1,15 @@
-import React, { Component as ReactComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import objectAssign from 'object-assign';
 
 function createComponent(Component, additionalContextTypes) {
-  let componentName = Component.displayName || Component.name;
-  let childContextTypes = objectAssign({
-    reactor: React.PropTypes.object.isRequired,
+  const componentName = Component.displayName || Component.name;
+  const childContextTypes = objectAssign({
+    reactor: PropTypes.object.isRequired,
   }, additionalContextTypes || {});
 
-  class ReactorProvider extends ReactComponent {
+  class ReactorProvider extends React.Component {
     static displayName = 'ReactorProvider(' + componentName + ')';
 
     static propTypes = {
@@ -18,8 +18,8 @@ function createComponent(Component, additionalContextTypes) {
 
     static childContextTypes = childContextTypes;
 
-    static getChildContext = function () {
-      let childContext = {
+    getChildContext() {
+      const childContext = {
         reactor: this.props.reactor,
       };
       if (additionalContextTypes) {
@@ -28,7 +28,7 @@ function createComponent(Component, additionalContextTypes) {
         }, this);
       }
       return childContext;
-    };
+    }
 
     render() {
       return React.createElement(Component, this.props);
@@ -44,7 +44,7 @@ function createComponent(Component, additionalContextTypes) {
  * Provides reactor prop to all children as React context
  *
  * Example:
- *   const WrappedComponent = provideReactor(Component, {
+ *   var WrappedComponent = provideReactor(Component, {
  *     foo: React.PropTypes.string
  *   });
  *
@@ -64,7 +64,7 @@ function createComponent(Component, additionalContextTypes) {
  * @returns {React.Component|Function} returns function if using decorator pattern
  */
 export default function provideReactor(Component, additionalContextTypes) {
-  console.warn('`provideReactor` is deprecated, use `<Provider reactor={reactor} />` instead'); // eslint-disable-line
+  console.warn('`provideReactor` is deprecated, use `<Provider reactor={reactor} />` instead');  // eslint-disable-line
   // support decorator pattern
   if (arguments.length === 0 || typeof arguments[0] !== 'function') {
     additionalContextTypes = arguments[0];

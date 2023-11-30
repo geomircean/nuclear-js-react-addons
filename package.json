@@ -4,7 +4,7 @@
   "description": "React addons for nuclear-js",
   "main": "build/index.js",
   "scripts": {
-    "build": "scripts/build.sh",
+    "build": "bash ./scripts/build.sh",
     "prepublish": "npm run build",
     "test": "npm run lint && karma start --single-run",
     "lint": "eslint .",
@@ -56,7 +56,7 @@
     "mocha": "^2.2.5",
     "mocha-jsdom": "^1.0.0",
     "node-libs-browser": "^0.5.2",
-    "nuclear-js": "^1.2.1",
+    "nuclear-js": "^1.4.0",
     "prop-types": "^15.8.1",
     "react": "^15.7.0",
     "react-addons-test-utils": "^0.14.3",

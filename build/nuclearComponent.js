@@ -36,7 +36,7 @@ var _connect2 = _interopRequireDefault(_connect);
  */
 
 function nuclearComponent(Component, getDataBindings) {
-  console.warn('nuclearComponent is deprecated, use `connect()` instead');
+  console.warn('nuclearComponent is deprecated, use `connect()` instead'); // eslint-disable-line
   // support decorator pattern
   // detect all React Components because they have a render method
   if (arguments.length === 0 || !Component.prototype.render) {

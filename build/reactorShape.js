@@ -2,12 +2,12 @@
 
 exports.__esModule = true;
 
-var _react = require('react');
+var _propTypes = require('prop-types');
 
-exports['default'] = _react.PropTypes.shape({
-  dispatch: _react.PropTypes.func.isRequired,
-  evaluate: _react.PropTypes.func.isRequired,
-  evaluateToJS: _react.PropTypes.func.isRequired,
-  observe: _react.PropTypes.func.isRequired
+exports['default'] = _propTypes.PropTypes.shape({
+  dispatch: _propTypes.PropTypes.func.isRequired,
+  evaluate: _propTypes.PropTypes.func.isRequired,
+  evaluateToJS: _propTypes.PropTypes.func.isRequired,
+  observe: _propTypes.PropTypes.func.isRequired
 });
 module.exports = exports['default'];

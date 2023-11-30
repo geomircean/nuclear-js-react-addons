@@ -38,6 +38,7 @@ function connect(mapStateToProps) {
         this.reactor = props.reactor || context.reactor;
         this.unsubscribeFns = [];
         this.updatePropMap(props);
+        this.state = this.getState();
       }
 
       Connect.prototype.resubscribe = function resubscribe(props) {
@@ -45,10 +46,6 @@ function connect(mapStateToProps) {
         this.updatePropMap(props);
         this.updateState();
         this.subscribe();
-      };
-
-      Connect.prototype.componentWillMount = function componentWillMount() {
-        this.updateState();
       };
 
       Connect.prototype.componentDidMount = function componentDidMount() {
@@ -63,7 +60,7 @@ function connect(mapStateToProps) {
         this.propMap = mapStateToProps ? mapStateToProps(props) : {};
       };
 
-      Connect.prototype.updateState = function updateState() {
+      Connect.prototype.getState = function getState() {
         var propMap = this.propMap;
         var stateToSet = {};
 
@@ -72,7 +69,11 @@ function connect(mapStateToProps) {
           stateToSet[key] = this.reactor.evaluate(getter);
         }
 
-        this.setState(stateToSet);
+        return stateToSet;
+      };
+
+      Connect.prototype.updateState = function updateState() {
+        this.setState(this.getState());
       };
 
       Connect.prototype.subscribe = function subscribe() {
